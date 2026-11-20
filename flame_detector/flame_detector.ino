@@ -7,6 +7,7 @@
     Flame sensor DO -> GPIO23
     Flame sensor AO -> GPIO34 (ADC1_CH6, input-only pin)
     Buzzer signal   -> GPIO22 (passive buzzer, driven with tone())
+    Status LED      -> GPIO2  (on-board LED on most DevKits)
 */
 
 #include "pitches.h"
@@ -16,6 +17,7 @@
 constexpr uint8_t  FLAME_DO_PIN     = 23;
 constexpr uint8_t  FLAME_AO_PIN     = 34;
 constexpr uint8_t  BUZZER_PIN       = 22;
+constexpr uint8_t  STATUS_LED_PIN   = 2;   // on-board LED on most ESP32 DevKits
 
 // Level DO reads when the sensor sees flame. Flip to LOW if your module's
 // DO output is active-low.
@@ -50,7 +52,7 @@ void setup() {
   Serial.begin(SERIAL_BAUD);
   pinMode(FLAME_DO_PIN, INPUT);
   pinMode(BUZZER_PIN, OUTPUT);
-  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(STATUS_LED_PIN, OUTPUT);
 }
 
 void loop() {
@@ -58,7 +60,7 @@ void loop() {
   static uint32_t lastReportMs = 0;
 
   const bool flame = digitalRead(FLAME_DO_PIN) == FLAME_DETECTED;
-  digitalWrite(LED_BUILTIN, flame ? HIGH : LOW);
+  digitalWrite(STATUS_LED_PIN, flame ? HIGH : LOW);
 
   // Log state changes only, not every pass.
   if (static_cast<int8_t>(flame) != lastState) {

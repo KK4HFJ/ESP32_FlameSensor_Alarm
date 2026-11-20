@@ -1,6 +1,6 @@
 # ESP32 Flame Sensor Alarm
 
-An ESP32 watches an IR flame sensor module. When it sees flame, it lights the on-board LED and sounds a passive piezo buzzer. The sensor's analog output is logged to the serial port (115200 baud) every 500 ms. Its `AO:<value>` format works with the Serial Plotter.
+An ESP32 watches an IR flame sensor module. When it sees flame, it lights the on-board LED (GPIO2) and sounds a passive piezo buzzer. The sensor's analog output is logged to the serial port (115200 baud) every 500 ms. Its `AO:<value>` format works with the Serial Plotter.
 
 ## Parts
 
